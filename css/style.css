@@ -20,9 +20,13 @@ nav {
 	border-bottom: 1px solid #512DA8;
 }
 
+a {
+	cursor: pointer;
+}
+
 a.number {
+	position: relative;
 	display: inline-block;
-	transition: left 0.25s;
 	z-index: 10;
 }
 
@@ -47,7 +51,7 @@ main span.operations-wrapper {
 	font-size: 32px;
 	font-weight: 300;
 	color: rgba(255, 255, 255, 0.54);
-	animation: operations-in 0.3s;
+	animation: operations-in 0.25s;
 }
 
 @keyframes operations-in {
@@ -91,6 +95,7 @@ main #calculated {
 	padding: 7px 0 0;
 	border-top: 1px solid rgba(255, 255, 255, 0.31);
 	font-size: 40px;
+	cursor: pointer;
 	animation: operations-in 0.25s;
 }
 
@@ -144,6 +149,7 @@ main:empty ~ #back {
 	height: 64px;
 	line-height: 64px;
 	text-align: center;
+	transition: left 0.25s;
 }
 
 #numbers > :nth-child(1) {
@@ -168,4 +174,41 @@ main:empty ~ #back {
 
 #numbers > :nth-child(6) {
 	left: 83.3333%;
+}
+
+/* Large Devices */
+@media (min-width: 600px) {
+
+	main {
+		margin: auto;
+		max-width: 600px;
+	}
+
+	#numbers > a {
+		width: 100px;
+	}
+
+	#numbers > :nth-child(1) {
+		left: calc(50% - 300px);
+	}
+
+	#numbers > :nth-child(2) {
+		left: calc(50% - 200px);
+	}
+
+	#numbers > :nth-child(3) {
+		left: calc(50% - 100px);
+	}
+
+	#numbers > :nth-child(4) {
+		left: 50%;
+	}
+
+	#numbers > :nth-child(5) {
+		left: calc(50% + 100px);
+	}
+
+	#numbers > :nth-child(6) {
+		left: calc(50% + 200px);
+	}
 }

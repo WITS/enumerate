@@ -10,7 +10,7 @@ function init() {
 	var numbers = new Array();
 	// Generate big numbers
 	for (let i = 2; i --; ) {
-		numbers.push(choose(10, 15, 20, 25, 50, 75, 100));
+		numbers.push(choose(10, 15, 20, 25, 50, 75, 100, 200));
 	}
 	// Generate little numbers
 	for (let i = 4; i --; ) {
@@ -86,7 +86,7 @@ function click(event) {
 		setTimeout(() => {
 			a.style.transition = "transform 0.25s";
 			a.style.transform = "";
-		}, 10);
+		}, 18);
 		setTimeout(() => {
 			a.style.transition = "";
 		}, 250);
@@ -134,7 +134,7 @@ function click(event) {
 				setTimeout(() => {
 					elem.style.transition = "transform 0.25s";
 					elem.style.transform = "";
-				}, 10);
+				}, 18);
 				setTimeout(() => {
 					elem.style.transition = "";
 				}, 250);
@@ -210,7 +210,7 @@ function back() {
 		setTimeout(() => {
 			elem.style.transition = "transform 0.25s, font-size 0.25s";
 			elem.style.transform = "";
-		}, 10);
+		}, 18);
 		setTimeout(() => {
 			elem.style.transition = "";
 		}, 250);
@@ -245,7 +245,7 @@ function undo(line, exclusive) {
 		setTimeout(() => {
 			a.style.transition = "transform 0.25s";
 			a.style.transform = "";
-		}, 10);
+		}, 18);
 		setTimeout(() => {
 			a.style.transition = "";
 		}, 250);
@@ -310,7 +310,7 @@ Equation.prototype.push = function(elem, animate) {
 			setTimeout(() => {
 				elem.style.transition = "transform 0.25s";
 				elem.style.transform = "";
-			}, 10);
+			}, 18);
 			setTimeout(() => {
 				elem.style.transition = "";
 			}, 250);
@@ -383,7 +383,7 @@ Equation.prototype.calc = function() {
 		setTimeout(() => {
 			calculated.style.transition = "transform 0.25s";
 			calculated.style.transform = "";
-		}, 10);
+		}, 18);
 		setTimeout(() => {
 			calculated.style.transition = "";
 		}, 250);
