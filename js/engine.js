@@ -223,6 +223,7 @@ function back() {
 
 function success() {
 	IS_WON = true;
+	document.body.addClass("success");
 	var overlay = document.createElement("div");
 	overlay.id = "success";
 	var title = document.createElement("header");
@@ -240,6 +241,8 @@ function success() {
 		document.q("main,nav,#numbers").do("empty");
 		init();
 		IS_WON = false;
+		CURRENT_EQUATION = null;
+		document.body.removeClass("success");
 		overlay.addClass("out");
 		setTimeout(() => {
 			overlay.remove();

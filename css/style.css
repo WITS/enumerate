@@ -85,7 +85,8 @@ main a.operation.selected {
 	color: rgba(255, 255, 255, 0.87);
 }
 
-main span.operations-wrapper:not(.indeterminate) a.operation:not(.selected) {
+main span.operations-wrapper:not(.indeterminate) a.operation:not(.selected),
+body.success main a.operation:not(.selected) {
 	width: 0;
 	transform: scale(0);
 	opacity: 0;
@@ -125,7 +126,8 @@ main #calculated {
 	transition: opacity 0.2s, transform 0.2s;
 }
 
-main:empty ~ #back {
+main:empty ~ #back,
+body.success #back {
 	transform: scale(0.5);
 	opacity: 0;
 	cursor: default;
