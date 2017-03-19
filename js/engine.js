@@ -304,6 +304,29 @@ function undo(line, exclusive) {
 	}
 }
 
+// Sets the numbers for the puzzle
+function setNumbers() {
+	// Set the goal?
+	if (arguments.length === 7) {
+		CURRENT_GOAL = arguments[6];
+		document.querySelector("nav").do(function() {
+			this.setAttribute("data-number", CURRENT_GOAL);
+			this.empty();
+			this.appendText(CURRENT_GOAL);
+		});
+	}
+	// Set the other six
+	let numbers = document.querySelector("#numbers");
+	for (let i = 6; i --; ) {
+		let n = arguments[i];
+		numbers.children[i].do(function() {
+			this.setAttribute("data-number", n);
+			this.empty();
+			this.appendText(n);
+		});
+	}
+}
+
 function irandom(n) {
 	return Math.floor(Math.random() * n);
 }

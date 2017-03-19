@@ -1,7 +1,7 @@
 html {
 	font-family: Roboto, Arial, Helvetica, sans-serif;
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 	background-color: #673AB7;
 	color: rgba(255, 255, 255, 0.87);
 }
