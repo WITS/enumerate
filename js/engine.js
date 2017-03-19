@@ -379,15 +379,19 @@ Equation.prototype.calc = function() {
 		values.splice(values.length - 1);
 	}
 	// Multiply and divide adjacent numbers
-	for (let i = values.length - 2; i >= 1; i -= 2) {
-		switch (values[i]) {
+	for (let x = 1, y = values.length; x < y; x += 2) {
+		switch (values[x]) {
 			case "*":
-				values[i - 1] *= values[i + 1];
-				values.splice(i, 2);
+				values[x - 1] *= values[x + 1];
+				values.splice(x, 2);
+				x -= 2;
+				y -= 2;
 				break;
 			case "/":
-				values[i - 1] /= values[i + 1];
-				values.splice(i, 2);
+				values[x - 1] /= values[x + 1];
+				values.splice(x, 2);
+				x -= 2;
+				y -= 2;
 				break;
 			default: break;
 		}
