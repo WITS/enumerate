@@ -1,5 +1,6 @@
 CURRENT_EQUATION = null;
 CURRENT_GOAL = 0;
+IS_WON = false;
 
 document.addEventListener("DOMContentLoaded", () => {
 	init();
@@ -52,8 +53,10 @@ function init() {
 }
 
 function click(event) {
-	var t = event.target;
+	// If the game is currently on the game over screen
+	if (IS_WON) return;
 	// Find useful targets
+	var t = event.target;
 	for ( ; t && t.id !== "back" && t.id !== "calculated" &&
 		!t.hasClass("number") && !t.hasClass("operation"); t = t.parentElement);
 	// If nothing useful was clicked, stop here
@@ -216,6 +219,34 @@ function back() {
 		}, 250);
 	}
 	CURRENT_EQUATION = null;
+}
+
+function success() {
+	IS_WON = true;
+	var overlay = document.createElement("div");
+	overlay.id = "success";
+	var title = document.createElement("header");
+	title.appendText(choose("Superb!", "Perfect!", "Fantastic!",
+		"Awesome!", "Well done!", "Great job!", "Magnificent!",
+		"Wonderful!", "Stunning!", "Incredible!", "Flawless!",
+		"Amazing!", "Impressive!", "Marvelous!", "Excellent!",
+		"Extraordinary!", "Spectacular!", "Splendid!",
+		"Brilliant!", "Dazzling!", "Phenomenal!", "Outstanding!"));
+	overlay.appendChild(title);
+	var newButton = document.createElement("a");
+	newButton.id = "new-button";
+	newButton.appendText("New Puzzle");
+	newButton.addEventListener("click", () => {
+		document.q("main,nav,#numbers").do("empty");
+		init();
+		IS_WON = false;
+		overlay.addClass("out");
+		setTimeout(() => {
+			overlay.remove();
+		}, 250);
+	});
+	overlay.appendChild(newButton);
+	document.body.appendChild(overlay);
 }
 
 // Undoes push operations up to (and including, if exclusive == false)
@@ -394,6 +425,6 @@ Equation.prototype.calc = function() {
 	this.result = result;
 	// Detect if they got the right answer
 	if (result === CURRENT_GOAL) {
-		alert("g'job");
+		success();
 	}
 }
