@@ -48,8 +48,11 @@ function init() {
 	}
 	var goalWrapper = document.querySelector("nav");
 	goalWrapper.setAttribute("data-number", goal);
+	goalWrapper.removeAttribute("data-difficulty");
 	goalWrapper.appendChild(document.createTextNode(goal));
 	CURRENT_GOAL = goal;
+	// Attempt to calculate the difficulty of this puzzle
+	difficulty();
 }
 
 function click(event) {
@@ -219,6 +222,36 @@ function back() {
 		}, 250);
 	}
 	CURRENT_EQUATION = null;
+}
+
+// Calculates the diffculty of this puzzle
+function difficulty() {
+	// If the client doesn't support web workers, stop here
+	if (!window.Worker) return;
+	// Get the current goal
+	var goal = CURRENT_GOAL;
+	// Get the current numbers
+	var numbers = new Array();
+	document.q("a.number").do(function() {
+		numbers.push(+this.getAttribute("data-number"));
+	});
+	// Create a worker
+	var w = new Worker("js/difficulty.js");
+	// Set up the event listener
+	w.addEventListener("message", (event) => {
+		console.group("Received data from worker");
+		console.log(event.data);
+		console.groupEnd();
+		// Show the difficulty
+		document.querySelector("nav").setAttribute(
+			"data-difficulty", event.data);
+		w.terminate();
+	});
+	// Send this information to the worker
+	w.postMessage({
+		goal: goal,
+		numbers: numbers
+	});
 }
 
 function success() {
