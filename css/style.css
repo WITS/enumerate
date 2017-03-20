@@ -38,8 +38,17 @@ nav::after {
 	-webkit-font-smoothing: antialiased;
 
 	letter-spacing: -2px;
+	max-width: 74px;
+
+	transition: opacity 0.2s, max-width 0.2s;
 
 	content: "star_border star_border star_border";
+}
+
+nav:not([data-difficulty])::after {
+	padding-left: 0;
+	max-width: 0;
+	opacity: 0;
 }
 
 nav[data-difficulty='1']::after {

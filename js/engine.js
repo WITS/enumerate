@@ -283,6 +283,10 @@ function success() {
 	});
 	overlay.appendChild(newButton);
 	document.body.appendChild(overlay);
+	setTimeout(() => {
+		document.querySelector("nav").removeAttribute(
+			"data-difficulty");
+	}, 200);
 }
 
 // Undoes push operations up to (and including, if exclusive == false)

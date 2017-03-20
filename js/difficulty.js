@@ -49,7 +49,7 @@ self.addEventListener("message", (event) => {
 	// Calculate the difficulty
 	if (min <= 2 || count > 800) {
 		result = 1;
-	} else if (min >= 5 || count < 200) {
+	} else if ((min >= 5 && count < 450) || count < 300) {
 		result = 3;
 	} else {
 		result = 2;
