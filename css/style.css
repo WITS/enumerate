@@ -101,6 +101,8 @@ nav[data-difficulty='3']::after {
 	direction: ltr;
 	-webkit-font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
+
+	z-index: 16;
 }
 
 #new {

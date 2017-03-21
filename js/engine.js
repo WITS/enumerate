@@ -53,6 +53,22 @@ function init() {
 	location.hash = "#=" + id;
 }
 
+// This function is just a Time Lord
+function regenerate() {
+	document.q("main,nav,#numbers").do("empty");
+	init();
+	if (IS_WON) {
+		IS_WON = false;
+		CURRENT_EQUATION = null;
+		document.body.removeClass("success");
+		let overlay = document.querySelector("#success");
+		overlay.addClass("out");
+		setTimeout(() => {
+			overlay.remove();
+		}, 250);
+	}
+}
+
 function load() {
 	try {
 		document.querySelector("#share").href =
