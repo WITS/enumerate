@@ -28,10 +28,12 @@ function init() {
 	}
 	// Calculate goal number
 	var goal = 0.5;
-	while (Math.floor(goal) !== goal || goal < 100 || goal > 999) {
+	while (Math.floor(goal) !== goal || goal < 100 || goal > 999 ||
+		numbers.indexOf(goal) !== -1) {
 		let temp = numbers.slice();
 		goal = temp.splice(irandom(6), 1)[0];
-		for (let i = 3 + irandom(3); i --; ) {
+		for (let i = 4 + irandom(2) -
+			Math.ceil(0.5 * Math.sqrt(irandom(17))); i --; ) {
 			let n = temp.splice(irandom(temp.length), 1)[0];
 			switch (irandom(4)) {
 				case 0: // Add
@@ -379,7 +381,6 @@ Equation = function() {
 Equation.prototype.push = function(elem, animate) {
 	if (elem.hasClass("operation")) {
 		this.values.push(elem.getAttribute("data-value"));
-		
 	} else {
 		this.values.push(+elem.getAttribute("data-number"));
 		// Move the number in the DOM
@@ -430,7 +431,11 @@ Equation.prototype.push = function(elem, animate) {
 // Calculates the result of this equation
 Equation.prototype.calc = function() {
 	// If there are not at least two numbers, stop here
-	if (this.values.length <= 2) return;
+	if (this.values.length <= 2) {
+		result = this.values[0];
+		if (result === CURRENT_GOAL) success();
+		return;
+	}
 	// Create a copy of the values
 	var values = this.values.slice();
 	// If the last value is an operation

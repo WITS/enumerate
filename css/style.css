@@ -18,6 +18,14 @@ nav {
 	font-weight: 300;
 	background-color: #5E35B1;
 	border-bottom: 1px solid #512DA8;
+
+	cursor: default;
+
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 nav::after {
@@ -52,6 +60,10 @@ nav:not([data-difficulty])::after {
 }
 
 nav[data-difficulty='1']::after {
+	content: "star_border star_border star_border";
+}
+
+nav[data-difficulty='1']::after {
 	content: "star star_border star_border";
 }
 
@@ -64,8 +76,15 @@ nav[data-difficulty='3']::after {
 }
 
 a {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	cursor: pointer;
+
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 a.number {
