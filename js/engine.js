@@ -3,8 +3,13 @@ CURRENT_GOAL = 0;
 IS_WON = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-	init();
+	if (!location.hash) {
+		init();
+	} else {
+		load();
+	}
 	window.addEventListener("click", click);
+	window.addEventListener("hashchange", load);
 });
 
 function init() {
@@ -16,15 +21,6 @@ function init() {
 	// Generate little numbers
 	for (let i = 4; i --; ) {
 		numbers.push(1 + irandom(9));
-	}
-	// Generate number elements
-	var numbersWrapper = document.querySelector("#numbers");
-	for (let n of numbers) {
-		let a = document.createElement("a");
-		a.className = "number";
-		a.setAttribute("data-number", n);
-		a.appendChild(document.createTextNode(n));
-		numbersWrapper.appendChild(a);
 	}
 	// Calculate goal number
 	var goal = 0.5;
@@ -48,13 +44,49 @@ function init() {
 			}
 		}
 	}
-	var goalWrapper = document.querySelector("nav");
-	goalWrapper.setAttribute("data-number", goal);
-	goalWrapper.removeAttribute("data-difficulty");
-	goalWrapper.appendChild(document.createTextNode(goal));
-	CURRENT_GOAL = goal;
-	// Attempt to calculate the difficulty of this puzzle
-	difficulty();
+	// Generate the unique puzzle id
+	let id = pad(base62(goal));
+	for (let i = 6; i --; ) {
+		id += pad(base62(numbers[i]));
+	}
+	// Set the hash
+	location.hash = "#=" + id;
+}
+
+function load() {
+	try {
+		document.querySelector("#share").href =
+			"https://wits.run/enum" + location.hash;
+		var id = location.hash.substr(2);
+		var goal = CURRENT_GOAL = decodeBase62(id.substr(0, 2));
+		var numbers = new Array();
+		for (let i = 6; i --; ) {
+			numbers.push(decodeBase62(id.substr(2 + 2 * i, 2)));
+		}
+		// Empty the main content
+		CURRENT_EQUATION = null;
+		document.querySelector("main").empty();
+		// Generate number elements
+		var numbersWrapper = document.querySelector("#numbers");
+		numbersWrapper.empty();
+		for (let n of numbers) {
+			let a = document.createElement("a");
+			a.className = "number";
+			a.setAttribute("data-number", n);
+			a.appendChild(document.createTextNode(n));
+			numbersWrapper.appendChild(a);
+		}
+		var goalWrapper = document.querySelector("nav");
+		goalWrapper.empty();
+		goalWrapper.setAttribute("data-number", goal);
+		goalWrapper.removeAttribute("data-difficulty");
+		goalWrapper.appendChild(document.createTextNode(goal));
+		CURRENT_GOAL = goal;
+		// Attempt to calculate the difficulty of this puzzle
+		difficulty();
+	} catch (e) {
+		init();
+	}
 }
 
 function click(event) {
@@ -372,6 +404,48 @@ function irandom(n) {
 
 function choose() {
 	return arguments[Math.floor(Math.random() * arguments.length)];
+}
+
+function base62(n) {
+	var s = "";
+	while (n) {
+		let d = n % 62;
+		if (d < 10) {
+
+		} else if (d < 36) {
+			d = String.fromCharCode(55 + d);
+		} else {
+			d = String.fromCharCode(61 + d);
+		}
+		s = d + s;
+		n = Math.floor(n / 62);
+	}
+	return s || "0";
+}
+
+function decodeBase62(s) {
+	var n = 0;
+	for (let i = s.length; i --; ) {
+		let c = s[i];
+		let d;
+		if (c >= '0' && c <= '9') {
+			d = +c;
+		} else if (c >= 'A' && c <= 'Z') {
+			d = c.charCodeAt(0) - 55;
+		} else {
+			d = c.charCodeAt(0) - 61;
+		}
+		n += d * Math.pow(62, s.length - i - 1);
+	}
+	return n;
+}
+
+// Left pads a string (s) with zeros until
+// it is at least (w) characters wide
+function pad(s, w) {
+	var w = w || 2;
+	for ( ; s.length < w; s = "0" + s);
+	return s;
 }
 
 Equation = function() {

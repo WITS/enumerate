@@ -21,6 +21,8 @@ nav {
 
 	cursor: default;
 
+	transition: padding 0.25s;
+
 	-moz-user-select: -moz-none;
 	-khtml-user-select: none;
 	-webkit-user-select: none;
@@ -28,14 +30,20 @@ nav {
 	user-select: none;
 }
 
+nav[data-difficulty]:hover {
+	padding: 10px 0 22px;
+}
+
 nav::after {
+	position: absolute;
+	left: calc(50% - 23px);
+	top: 44px;
 	display: inline-block;
-	padding-left: 8px;
 
 	font-family: 'Material Icons';
 	font-weight: normal;
 	font-style: normal;
-	font-size: 24px;
+	font-size: 16px;
 	line-height: 1;
 	letter-spacing: normal;
 	text-transform: none;
@@ -44,18 +52,15 @@ nav::after {
 	direction: ltr;
 	-webkit-font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
-
 	letter-spacing: -2px;
-	max-width: 74px;
 
-	transition: opacity 0.2s, max-width 0.2s;
+	transition: opacity 0.25s;
 
 	content: "star_border star_border star_border";
 }
 
-nav:not([data-difficulty])::after {
-	padding-left: 0;
-	max-width: 0;
+nav:not([data-difficulty])::after,
+nav:not(:hover)::after {
 	opacity: 0;
 }
 
@@ -73,6 +78,44 @@ nav[data-difficulty='2']::after {
 
 nav[data-difficulty='3']::after {
 	content: "star star star";
+}
+
+#new,
+#share {
+	position: fixed;
+	top: 0;
+	display: block;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	letter-spacing: normal;
+	text-transform: none;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}
+
+#new {
+	left: 0;
+	/* TEMP */
+	/*right: 0;*/
+}
+
+#share {
+	/* TEMP */
+	/*display: none;*/
+
+	right: 0;
+	color: inherit;
+	text-decoration: none;
 }
 
 a {
