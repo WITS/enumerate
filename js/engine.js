@@ -412,6 +412,13 @@ function setNumbers() {
 			this.appendText(n);
 		});
 	}
+	// Generate the unique puzzle id
+	let id = pad(base62(CURRENT_GOAL));
+	for (let i = 6; i --; ) {
+		id += pad(base62(arguments[i]));
+	}
+	// Set the hash
+	location.hash = "#=" + id;
 }
 
 function irandom(n) {
