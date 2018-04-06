@@ -51,6 +51,7 @@ nav::after {
 	word-wrap: normal;
 	direction: ltr;
 	-webkit-font-feature-settings: 'liga';
+	font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
 	letter-spacing: -2px;
 
@@ -100,6 +101,7 @@ nav[data-difficulty='3']::after {
 	word-wrap: normal;
 	direction: ltr;
 	-webkit-font-feature-settings: 'liga';
+	font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
 
 	z-index: 16;
@@ -228,6 +230,7 @@ main #calculated {
 	word-wrap: normal;
 	direction: ltr;
 	-webkit-font-feature-settings: 'liga';
+	font-feature-settings: 'liga';
 	-webkit-font-smoothing: antialiased;
 
 	transition: opacity 0.2s, transform 0.2s;
